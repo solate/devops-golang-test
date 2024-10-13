@@ -1,0 +1,12 @@
+apiVersion: apps.example.com/v1
+kind: MyStatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/name: mystatefulset
+    app.kubernetes.io/instance: mystatefulset-sample
+    app.kubernetes.io/part-of: devops-golang-test
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: devops-golang-test
+  name: mystatefulset-sample
+spec:
+  # TODO(user): Add fields here
