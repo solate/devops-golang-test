@@ -1,0 +1,25 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: mystatefulset-validator
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: mystatefulset-validator
+      namespace: system
+      path: /validate-apps-example-com-v1-mystatefulset
+  failurePolicy: Fail
+  name: vmystatefulset.kb.io
+  rules:
+  - apiGroups:
+    - apps.example.com
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - mystatefulsets
+  sideEffects: None

@@ -17,6 +17,7 @@ limitations under the License.
 package v1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -25,21 +26,28 @@ import (
 
 // MyStatefulSetSpec defines the desired state of MyStatefulSet
 type MyStatefulSetSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// // INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
+	// // Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of MyStatefulSet. Edit mystatefulset_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// // Foo is an example field of MyStatefulSet. Edit mystatefulset_types.go to remove/update
+	// Foo string `json:"foo,omitempty"`
+
+	Replicas int32                  `json:"replicas"`
+	Template corev1.PodTemplateSpec `json:"template"`
 }
 
 // MyStatefulSetStatus defines the observed state of MyStatefulSet
 type MyStatefulSetStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	ReadyReplicas int32 `json:"readyReplicas"`
 }
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
+// +kubebuilder:printcolumn:name="Replicas",type="integer",JSONPath=".spec.replicas",description="The number of replicas in the MyStatefulSet"
+// +kubebuilder:printcolumn:name="Ready",type="integer",JSONPath=".status.readyReplicas",description="The number of ready replicas in the MyStatefulSet"
 
 // MyStatefulSet is the Schema for the mystatefulsets API
 type MyStatefulSet struct {
